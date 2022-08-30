@@ -6,7 +6,6 @@
  */
 #include "Dio.h"
 #include "Bit_Math.h"
-#include "Std_Types.h"
 
 void Dio_vidconfigChanel(dio_port_t port, dio_pin_t pin,dio_dir_t dir)
 {
@@ -104,6 +103,28 @@ void Dio_vidwriteChanel(dio_port_t port, dio_pin_t pin,dio_level_t level)
 		{
 			CLEAR_BIT(DIO_PORTD_REG,pin);
 		}
+		break;
+	}
+}
+
+void Dio_vidWriteChanelGroup(dio_port_t port, u8 data, u8 mask)
+{
+	switch(port)
+	{
+	case DIO_PORTA:
+		DIO_PORTA_REG = (DIO_PORTA_REG & mask)|(data);
+		break;
+
+	case DIO_PORTB:
+		DIO_PORTB_REG = (DIO_PORTB_REG & mask)|(data);
+		break;
+
+	case DIO_PORTC:
+		DIO_PORTC_REG = (DIO_PORTC_REG & mask)|(data);
+		break;
+
+	case DIO_PORTD:
+		DIO_PORTD_REG = (DIO_PORTD_REG & mask)|(data);
 		break;
 	}
 }

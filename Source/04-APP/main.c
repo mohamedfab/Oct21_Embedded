@@ -7,23 +7,15 @@
 #include "Bit_Math.h"
 #include <util/delay.h>
 #include "Led.h"
-#include "Button.h"
-
+#include "SSD.h"
 
 int main()
 {
 	Led_vidinit();
-	Button_vidbuttonInit();
-
+	SSD_vidinit();
 	while (1)
 	{
-		if (Button_udtbuttonStatus(BUTTON0) == PRESSED)
-		{
-			Led_vidledOn(LED0);
-			_delay_ms(500);
-			Led_vidledOff(LED0);
-			_delay_ms(500);
-		}
+		SSD_viddisplyNum(85);
 	}
 	return 0;
 }
