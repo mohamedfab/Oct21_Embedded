@@ -11,6 +11,7 @@ RM := rm -rf
 -include Source/04-APP/subdir.mk
 -include Source/02-ECUA/SSD/Src/subdir.mk
 -include Source/02-ECUA/Led/Src/subdir.mk
+-include Source/02-ECUA/LCD/Src/subdir.mk
 -include Source/02-ECUA/Buzzer/Src/subdir.mk
 -include Source/02-ECUA/Button/Src/subdir.mk
 -include Source/01-MCAL/Dio/Src/subdir.mk
