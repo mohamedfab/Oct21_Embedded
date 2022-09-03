@@ -13,46 +13,33 @@
 #include "Lcd.h"
 #include <stdio.h>
 #include "Button.h"
+#include "GINT.h"
+#include <avr/interrupt.h>
+
+
+#define EXTINT_GICR_REG			(*(u8*)0x5B)
+#define EXTINT_MCUCR_REG		(*(u8*)0x55)
+#define EXTINT_MCUCR_REG		(*(u8*)0x55)
+
+ISR(INT0_vect)
+{
+	Led_vidledToggle(LED1);
+}
 
 int main()
 {
-	u8 key =00;
-	s8 counter =0;
-	u16 i=0;
-	Button_vidbuttonInit();
-	SSD_vidinit();
+	GINT_vidEnableAllInterrupts();
+
+	/*	Enable External INT0	*/
+	SET_BIT(EXTINT_GICR_REG,6);
+
+	/*	Configure Sense Control	*/
+	SET_BIT(EXTINT_MCUCR_REG,0);
+	SET_BIT(EXTINT_MCUCR_REG,1);
+
 	while (1)
 	{
-		key = Keypad_u8GetKey();
-		if (key != 0xFF)
-		{
 
-		}
-		SSD_viddisplyNum(counter);
-		if (Button_udtbuttonStatus(BUTTON0) == PRESSED)
-		{
-
-//			SSD_viddelayWithDisplay_ms(counter, 250);
-
-			while (Button_udtbuttonStatus(BUTTON0) == PRESSED)
-				SSD_viddisplyNum(counter);
-
-			counter++;
-			if (counter == 100)
-			{
-				counter =0;
-			}
-		}
-
-		if (Button_udtbuttonStatus(BUTTON2) == PRESSED)
-			{
-				SSD_viddelayWithDisplay_ms(counter, 250);
-				counter--;
-				if (counter == -1)
-				{
-					counter = 99;
-				}
-			}
 	}
 	return 0;
 }
