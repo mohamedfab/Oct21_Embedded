@@ -12,36 +12,47 @@
 #include "SSD.h"
 #include "Lcd.h"
 #include <stdio.h>
+#include "Button.h"
 
 int main()
 {
-	u8 cntr =0;
-	u8 customChar[] = {
-	  0b01110,
-	  0b11111,
-	  0b10001,
-	  0b10001,
-	  0b10001,
-	  0b10001,
-	  0b10001,
-	  0b11111
-	};
-
-
-	Lcd_vidinit();
-	for (cntr=0; cntr<8; cntr++)
-	{
-		Lcd_vidCmd(0x40+cntr); /* */
-		Lcd_vidDisplayChar(customChar[cntr]);
-	}
-
-	Lcd_vidRowColumn(0, 0);  /*DDRAM*/
-	Lcd_vidDisplayChar(0);
-
+	u8 key =00;
+	s8 counter =0;
+	u16 i=0;
+	Button_vidbuttonInit();
 	SSD_vidinit();
 	while (1)
 	{
-		SSD_viddisplyNum(85);
+		key = Keypad_u8GetKey();
+		if (key != 0xFF)
+		{
+
+		}
+		SSD_viddisplyNum(counter);
+		if (Button_udtbuttonStatus(BUTTON0) == PRESSED)
+		{
+
+//			SSD_viddelayWithDisplay_ms(counter, 250);
+
+			while (Button_udtbuttonStatus(BUTTON0) == PRESSED)
+				SSD_viddisplyNum(counter);
+
+			counter++;
+			if (counter == 100)
+			{
+				counter =0;
+			}
+		}
+
+		if (Button_udtbuttonStatus(BUTTON2) == PRESSED)
+			{
+				SSD_viddelayWithDisplay_ms(counter, 250);
+				counter--;
+				if (counter == -1)
+				{
+					counter = 99;
+				}
+			}
 	}
 	return 0;
 }

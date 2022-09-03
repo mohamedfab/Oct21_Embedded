@@ -16,7 +16,7 @@ void Dio_vidwriteChanel(dio_port_t port, dio_pin_t pin, dio_level_t level);
 void Dio_vidWriteChanelGroup(dio_port_t port, u8 data, u8 mask);
 dio_level_t Dio_udtreadChanel(dio_port_t port, dio_pin_t pin);
 void Dio_vidflipChanel(dio_port_t port, dio_pin_t pin);
-
+void Dio_vidPullUpEn(dio_port_t port, dio_pin_t pin);
 
 
 #endif /* DIO_H_ */

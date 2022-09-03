@@ -23,6 +23,7 @@ SUBDIRS := \
 Source/01-MCAL/Dio/Src \
 Source/02-ECUA/Button/Src \
 Source/02-ECUA/Buzzer/Src \
+Source/02-ECUA/Keypad/Src \
 Source/02-ECUA/LCD/Src \
 Source/02-ECUA/Led/Src \
 Source/02-ECUA/SSD/Src \
