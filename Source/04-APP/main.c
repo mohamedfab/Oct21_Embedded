@@ -15,11 +15,8 @@
 #include "Button.h"
 #include "GINT.h"
 #include <avr/interrupt.h>
+#include "ExtInt.h"
 
-
-#define EXTINT_GICR_REG			(*(u8*)0x5B)
-#define EXTINT_MCUCR_REG		(*(u8*)0x55)
-#define EXTINT_MCUCR_REG		(*(u8*)0x55)
 
 ISR(INT0_vect)
 {
@@ -28,18 +25,13 @@ ISR(INT0_vect)
 
 int main()
 {
+	Led_vidinit();
 	GINT_vidEnableAllInterrupts();
-
-	/*	Enable External INT0	*/
-	SET_BIT(EXTINT_GICR_REG,6);
-
-	/*	Configure Sense Control	*/
-	SET_BIT(EXTINT_MCUCR_REG,0);
-	SET_BIT(EXTINT_MCUCR_REG,1);
-
+	ExtInt_vidConfigExtInt(EXT_INT0, EXT_RISING_EDGE);
 	while (1)
 	{
-
+		Led_vidledToggle(LED0);
+		_delay_ms(500);
 	}
 	return 0;
 }

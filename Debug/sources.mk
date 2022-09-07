@@ -21,6 +21,7 @@ C_DEPS :=
 # Every subdirectory with source files must be described here
 SUBDIRS := \
 Source/01-MCAL/Dio/Src \
+Source/01-MCAL/EXTINT/Src \
 Source/01-MCAL/GINT/Src \
 Source/02-ECUA/Button/Src \
 Source/02-ECUA/Buzzer/Src \
