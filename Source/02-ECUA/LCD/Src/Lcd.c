@@ -117,7 +117,7 @@ void Lcd_vidDisplyInt(u32 num)
 }
 void Lcd_vidDisplyFlot(f64 num)
 {
-	u8 buffer[8];
-	sprintf(buffer,"%1.2f",num);
+	u8 buffer[20];
+	sprintf(buffer,"%f",num);
 	Lcd_vidDisplyStr(buffer);
 }

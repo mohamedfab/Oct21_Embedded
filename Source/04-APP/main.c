@@ -16,56 +16,40 @@
 #include "GINT.h"
 #include <avr/interrupt.h>
 #include "ExtInt.h"
-
-
-/*	ADC Registers	*/
-#define ADC_ADMUX_REG       (*(u8*)0x27)
-#define ADC_ADCSRA_REG		(*(u8*)0x26)
-#define ADC_ADCH_REG		(*(u8*)0x25)
-#define ADC_ADCL_REG		(*(u8*)0x24)
+#include "Adc.h"
 
 
 
-ISR(INT0_vect)
-{
-	Led_vidledToggle(LED1);
-}
 
 int main()
 {
 	u16 result;
 	f64 volt =0;
+	u8 voltDisplay = 0;
+
+	Adc_vidInit();
 	Lcd_vidinit();
-	/*	Enable ADC	*/
-	SET_BIT(ADC_ADCSRA_REG, 7);
-	/*	Configure ADC prescaler	 /128	*/
-	ADC_ADCSRA_REG |= 7 /*0000 0111*/;
-	/*	Select Vref +	AVCC	*/
-	SET_BIT(ADC_ADMUX_REG,6);
-	/*	select ADC channel	*/
-	ADC_ADMUX_REG |= 1/*00001*/;
+	Lcd_vidCmd(_LCD_CURSOR_OFF);
+
+
 
 	while (1)
 	{
-		/*	Start ADC conversion	*/
-		SET_BIT(ADC_ADCSRA_REG,6);
-		/*	wait until ADIF flag become 1 */
-		while(CHECK_BIT(ADC_ADCSRA_REG,4) !=1)
-		{
-			/*	Do Nothing	*/
-		}
-		/*	clear ADIF by writing 1 	*/
-		SET_BIT(ADC_ADCSRA_REG,4);
-		/*	read ADC result form ADCL, ADCH	*/
-		result=(ADC_ADCL_REG|(ADC_ADCH_REG<<8));
 
-		volt = result * (f64)4.8;
-		volt = volt/1000;
+		result = Adc_u16AdcRead(ADC_CHANNEL1);
+
+		volt = result * (f64)4.8; /*	mv	*/
+		volt = volt/10;			/*	v	*/
+
+		voltDisplay = volt * 10;
+		//3.6 * 10 = 36
 
 		Lcd_vidRowColumn(0, 0);
-		Lcd_vidDisplyStr("    ");
-		Lcd_vidRowColumn(0, 0);
-		Lcd_vidDisplyFlot(volt);
+		Lcd_vidDisplyStr("Volt =    ");
+		Lcd_vidRowColumn(0, 6);
+		Lcd_vidDisplyInt(voltDisplay/10);
+		Lcd_vidDisplayChar('.');
+		Lcd_vidDisplyInt(voltDisplay%10);
 		_delay_ms(100);
 	}
 	return 0;
