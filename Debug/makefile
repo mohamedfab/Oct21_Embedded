@@ -14,8 +14,11 @@ RM := rm -rf
 -include Source/02-ECUA/LM35/Src/subdir.mk
 -include Source/02-ECUA/LCD/Src/subdir.mk
 -include Source/02-ECUA/Keypad/Src/subdir.mk
+-include Source/02-ECUA/Dc_Motor/Src/subdir.mk
 -include Source/02-ECUA/Buzzer/Src/subdir.mk
 -include Source/02-ECUA/Button/Src/subdir.mk
+-include Source/01-MCAL/UART/Src/subdir.mk
+-include Source/01-MCAL/Timer0/Src/subdir.mk
 -include Source/01-MCAL/GINT/Src/subdir.mk
 -include Source/01-MCAL/EXTINT/Src/subdir.mk
 -include Source/01-MCAL/Dio/Src/subdir.mk

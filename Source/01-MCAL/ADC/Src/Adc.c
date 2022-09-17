@@ -4,6 +4,7 @@
  *  Created on: Sep 9, 2022
  *      Author: Eng_Fawzi
  */
+#include "Adc.h"
 #include "Adc_Reg.h"
 #include "Adc_Types.h"
 #include "Bit_Math.h"
@@ -19,9 +20,10 @@ void Adc_vidInit(void)
 	SET_BIT(ADC_ADMUX_REG,6);
 }
 
-u16 Adc_u16AdcRead(adc_channlId_t channel)
+f64 Adc_u16AdcRead(adc_channlId_t channel)
 {
 	u16 loc_adcResult = 0;
+	f64 loc_volt =0;
 	/*	select ADC channel	*/
 	ADC_ADMUX_REG =  (ADC_ADMUX_REG & 0xF8)| channel;
 	/*	Start ADC conversion	*/
@@ -39,5 +41,6 @@ u16 Adc_u16AdcRead(adc_channlId_t channel)
 	/*	read ADC result form ADCL, ADCH	*/
 	loc_adcResult=(ADC_ADCL_REG|(ADC_ADCH_REG<<8));
 
-	return loc_adcResult;
+	loc_volt = loc_adcResult * ADC_STEP;
+	return loc_volt;
 }
