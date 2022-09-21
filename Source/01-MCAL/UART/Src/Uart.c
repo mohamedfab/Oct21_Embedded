@@ -33,7 +33,7 @@ void USART_TransmitChar(u8 data)
 	UART_UDR_REG = data;
 }
 
-u8 USART_Receive(void)
+u8 USART_Receive_Blocking(void)
 {
 	/* Wait for data to be received */
 	while (CHECK_BIT(UART_UCSRA_REG,UART_RXC_BIT) == 0)
@@ -43,7 +43,20 @@ u8 USART_Receive(void)
 	/* Get and return received data from buffer */
 	return UART_UDR_REG;
 }
+u8 USART_Receive_NonBlocking(void)
+{
+	/* Wait for data to be received */
+	if (CHECK_BIT(UART_UCSRA_REG,UART_RXC_BIT) == 1)
+	{
+		/* Get and return received data from buffer */
+		return UART_UDR_REG;
+	}
+	else
+	{
+		return 0;
+	}
 
+}
 void USART_TransmitStr(u8 *str)
 {
 	while (*str != '\0')
@@ -51,4 +64,8 @@ void USART_TransmitStr(u8 *str)
 		USART_TransmitChar(*str);
 		str++;
 	}
+}
+void USART_Receive_InterruptEnable(void)
+{
+	SET_BIT(UART_UCSRB_REG,UART_RXCIE_BIT);
 }
