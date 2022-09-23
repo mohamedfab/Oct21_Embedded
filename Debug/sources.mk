@@ -24,6 +24,8 @@ Source/01-MCAL/ADC/Src \
 Source/01-MCAL/Dio/Src \
 Source/01-MCAL/EXTINT/Src \
 Source/01-MCAL/GINT/Src \
+Source/01-MCAL/I2C/Src \
+Source/01-MCAL/SPI/Src \
 Source/01-MCAL/Timer0/Src \
 Source/01-MCAL/UART/Src \
 Source/02-ECUA/Button/Src \

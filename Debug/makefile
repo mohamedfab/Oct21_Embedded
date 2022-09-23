@@ -19,6 +19,8 @@ RM := rm -rf
 -include Source/02-ECUA/Button/Src/subdir.mk
 -include Source/01-MCAL/UART/Src/subdir.mk
 -include Source/01-MCAL/Timer0/Src/subdir.mk
+-include Source/01-MCAL/SPI/Src/subdir.mk
+-include Source/01-MCAL/I2C/Src/subdir.mk
 -include Source/01-MCAL/GINT/Src/subdir.mk
 -include Source/01-MCAL/EXTINT/Src/subdir.mk
 -include Source/01-MCAL/Dio/Src/subdir.mk
