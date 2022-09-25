@@ -31,6 +31,7 @@ Source/01-MCAL/UART/Src \
 Source/02-ECUA/Button/Src \
 Source/02-ECUA/Buzzer/Src \
 Source/02-ECUA/Dc_Motor/Src \
+Source/02-ECUA/EEPROM24C16/Src \
 Source/02-ECUA/Keypad/Src \
 Source/02-ECUA/LCD/Src \
 Source/02-ECUA/LM35/Src \

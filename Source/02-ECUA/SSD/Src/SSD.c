@@ -24,7 +24,6 @@ void SSD_viddisplyNum(u8 num)
 {
 	u8 loc_secondDigit =  (num%10)<<4;
 	u8 loc_firstDigit = (num/10)<<4;
-	static boolean loc_once = TRUE;
 
 	/* Enable SSD 1	-> EN1 = High	*/
 	Dio_vidwriteChanel(DIO_PORTB, DIO_PIN2, DIO_HIGH);
